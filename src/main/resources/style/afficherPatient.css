@@ -1,0 +1,77 @@
+/* General Background */
+AnchorPane {
+    -fx-background-color: #faf9f6;
+}
+
+/* Label Styling */
+Label {
+    -fx-font-size: 12px;
+    -fx-font-family: "Calibri Bold";
+    -fx-text-fill: #3066b0;
+}
+
+/* ListView Styling */
+ListView {
+    -fx-background-color: #faf9f6;
+    -fx-border-color: #034172;
+    -fx-border-width: 2px;
+    -fx-cell-border-color: #a7c7e6;
+}
+
+/* ListCell Styling */
+ListCell {
+    -fx-font-size: 14px;
+    -fx-text-fill: #034172;
+    -fx-background-color: #a7c7e6;
+}
+
+/* Alternating Row Colors */
+ListView .list-cell:odd {
+    -fx-background-color: #a7c7e6;
+}
+
+ListView .list-cell:even {
+    -fx-background-color: #faf9f6;
+}
+
+ListView .list-cell:selected {
+    -fx-background-color: #b8e2e0;
+    -fx-text-fill: #faf9f6;
+}
+
+/* Button Styling */
+Button {
+    -fx-font-size: 14px;
+    -fx-font-family: "Arial";
+    -fx-background-color: #3066b0;
+    -fx-text-fill: white;
+    -fx-border-radius: 5px;
+    -fx-padding: 5px 10px;
+}
+
+Button:hover {
+    -fx-background-color: #034172;
+}
+
+/* Delete Button Styling */
+Button#deleteButton {
+    -fx-background-color: #d9534f;
+}
+
+Button#deleteButton:hover {
+    -fx-background-color: #c9302c;
+}
+
+/* Update Button Styling */
+Button#updateButton {
+    -fx-background-color: #f0ad4e;
+}
+
+Button#updateButton:hover {
+    -fx-background-color: #ec971f;
+}
+
+/* Line Styling */
+Line {
+    -fx-stroke: #a7c7e6;
+}

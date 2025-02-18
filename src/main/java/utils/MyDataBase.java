@@ -10,7 +10,7 @@ public class MyDataBase {
     private Connection connection;
 
     // Database configuration
-    private final String URL = "jdbc:mysql://localhost:3306/pidev_db";
+    private final String URL = "jdbc:mysql://localhost:3306/bdd";
     private final String USER = "root";
     private final String PASSWORD = "";
 
