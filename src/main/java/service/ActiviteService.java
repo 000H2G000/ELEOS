@@ -1,13 +1,14 @@
 package service;
 
-import model.Activite; // Class names should be PascalCase
-import utils.MyDataBase; // Follow naming conventions
+import javafx.scene.control.Alert;
+import models.Activite;
+import utils.MyDataBase;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ActiviteService implements IService<Activite> {
+public class ActiviteService implements Iservice<Activite> {
 
     private Connection con;
 
@@ -17,9 +18,14 @@ public class ActiviteService implements IService<Activite> {
 
     @Override
     public void add(Activite acti) {
+        if (isTimeConflict(acti)) {
+            showAlert("Time Conflict", "The specified time conflicts with another activity.");
+            return;
+        }
+
         String sql = "INSERT INTO activite (name, description, start_time, end_time) VALUES (?, ?, ?, ?)";
 
-        try (PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) { // 1. Request generated keys
+        try (PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, acti.getName());
             ps.setString(2, acti.getDescription());
             ps.setTimestamp(3, Timestamp.valueOf(acti.getStart_time()));
@@ -27,26 +33,28 @@ public class ActiviteService implements IService<Activite> {
 
             int affectedRows = ps.executeUpdate();
 
-            // 2. Check if insertion was successful
             if (affectedRows > 0) {
-                try (ResultSet generatedKeys = ps.getGeneratedKeys()) { // 3. Retrieve generated keys
+                try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
                     if (generatedKeys.next()) {
-                        int generatedId = generatedKeys.getInt(1); // Get the auto-generated ID
+                        int generatedId = generatedKeys.getInt(1);
                         acti.setId(generatedId);
-                        // 4. Assign the ID to the Java object
                     } else {
                         throw new SQLException("Failed to retrieve generated ID.");
                     }
                 }
             }
         } catch (SQLException e) {
-            System.err.println("Insert error: " + e.getMessage());
+            showAlert("Insert Error", "An error occurred while inserting the activity: " + e.getMessage());
         }
     }
 
-
     @Override
     public void update(Activite acti) {
+        if (isTimeConflict(acti)) {
+            showAlert("Time Conflict", "The specified time conflicts with another activity.");
+            return;
+        }
+
         String sql = "UPDATE activite SET name=?, description=?, start_time=?, end_time=? WHERE id=?";
 
         try (PreparedStatement ps = con.prepareStatement(sql)) {
@@ -57,7 +65,7 @@ public class ActiviteService implements IService<Activite> {
             ps.setInt(5, acti.getId());
             ps.executeUpdate();
         } catch (SQLException e) {
-            System.err.println("Update error: " + e.getMessage());
+            showAlert("Update Error", "An error occurred while updating the activity: " + e.getMessage());
         }
     }
 
@@ -69,7 +77,7 @@ public class ActiviteService implements IService<Activite> {
             ps.setInt(1, id);
             ps.executeUpdate();
         } catch (SQLException e) {
-            System.err.println("Delete error: " + e.getMessage());
+            showAlert("Delete Error", "An error occurred while deleting the activity: " + e.getMessage());
         }
     }
 
@@ -89,11 +97,52 @@ public class ActiviteService implements IService<Activite> {
                 a.setEnd_time(rs.getTimestamp("end_time").toLocalDateTime());
                 activities.add(a);
             }
+
         } catch (SQLException e) {
-            System.err.println("Fetch error: " + e.getMessage());
+            showAlert("Fetch Error", "An error occurred while fetching the activities: " + e.getMessage());
         }
         return activities;
     }
+
+    public boolean isTimeConflict(Activite acti) {
+        // SQL includes condition to exclude current activity's ID if it exists
+        String sql = "SELECT COUNT(*) FROM activite WHERE (start_time < ? AND end_time > ?) AND (id != ? OR ? IS NULL)";
+
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            // Set the start and end time parameters
+            ps.setTimestamp(1, Timestamp.valueOf(acti.getEnd_time()));
+            ps.setTimestamp(2, Timestamp.valueOf(acti.getStart_time()));
+
+            // Handle the ID parameters (for update vs. add)
+            if (acti.getId() != 0) {
+                // Existing activity (update): exclude its own ID
+                ps.setInt(3, acti.getId());
+                ps.setInt(4, acti.getId());
+            } else {
+                // New activity (add): ignore ID check
+                ps.setNull(3, Types.INTEGER);
+                ps.setNull(4, Types.INTEGER);
+            }
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    int count = rs.getInt(1);
+                    return count > 0; // Conflict exists if count > 0
+                }
+            }
+        } catch (SQLException e) {
+            showAlert("Time Conflict Check Error", "Error checking time conflict: " + e.getMessage());
+        }
+        return false;
+    }
+
+    private void showAlert(String title, String message) {
+        javafx.application.Platform.runLater(() -> {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle(title);
+            alert.setHeaderText(null);
+            alert.setContentText(message);
+            alert.showAndWait();
+        });
+    }
 }
-
-
