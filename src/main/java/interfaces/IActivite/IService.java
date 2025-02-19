@@ -1,6 +1,4 @@
-package interfaces;
-
-import models.Stock.Product;
+package interfaces.IActivite;
 
 import java.util.List;
 

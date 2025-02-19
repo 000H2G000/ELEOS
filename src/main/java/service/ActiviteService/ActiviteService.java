@@ -1,14 +1,15 @@
-package service;
+package service.ActiviteService;
 
+import interfaces.IActivite.IService;
 import javafx.scene.control.Alert;
-import models.Activite;
+import models.Activite.Activite;
 import utils.MyDataBase;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ActiviteService implements Iservice<Activite> {
+public class ActiviteService implements IService<Activite> {
 
     private Connection con;
 

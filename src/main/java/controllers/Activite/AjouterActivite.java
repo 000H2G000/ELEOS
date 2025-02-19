@@ -4,8 +4,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import models.Activite;
-import service.ActiviteService;
+import models.Activite.Activite;
+import service.ActiviteService.ActiviteService;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

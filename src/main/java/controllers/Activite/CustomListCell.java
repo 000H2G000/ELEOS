@@ -3,7 +3,7 @@ package controllers.Activite;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.util.Callback;
-import models.Activite;
+import models.Activite.Activite;
 
 public class CustomListCell extends ListCell<Activite> {
 
