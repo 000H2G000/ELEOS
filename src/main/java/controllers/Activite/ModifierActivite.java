@@ -4,8 +4,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import models.Activite;
-import service.ActiviteService;
+import models.Activite.Activite;
+import service.ActiviteService.ActiviteService;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -47,11 +47,6 @@ public class ModifierActivite {
             activite.setDescription(descriptionField.getText());
             activite.setStart_time(LocalDateTime.parse(startTimeField.getText(), DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")));
             activite.setEnd_time(LocalDateTime.parse(endTimeField.getText(), DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")));
-
-            if (activiteService.isTimeConflict(activite)) {
-                showAlert("Time Conflict", "The specified time conflicts with another activity.");
-                return;
-            }
 
             activiteService.update(activite);
             afficherActiviteController.refreshList(); // Refresh the list in the main controller

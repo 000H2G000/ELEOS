@@ -5,11 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.example</groupId>
-<<<<<<< HEAD
     <artifactId>PI3</artifactId>
-=======
-    <artifactId>PiDev3</artifactId>
->>>>>>> 90781c80dac62ee0115c83aef63989fd27e397da
     <version>1.0-SNAPSHOT</version>
 
 
