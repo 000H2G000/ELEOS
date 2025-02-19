@@ -1,0 +1,29 @@
+.root {
+    -fx-font-family: 'Arial';
+}
+
+.list-view {
+    -fx-background-color: white;
+    -fx-padding: 10;
+}
+
+.list-cell {
+    -fx-background-color: white;
+    -fx-border-color: #92e967;
+    -fx-border-width: 1px;
+    -fx-padding: 10;
+    -fx-text-fill: black;
+}
+
+.list-cell:filled:selected {
+    -fx-background-color: #92e967;
+    -fx-text-fill: white;
+}
+
+.label {
+    -fx-text-fill: black;
+}
+
+.text {
+    -fx-fill: black;
+}

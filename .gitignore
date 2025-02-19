@@ -35,4 +35,11 @@ build/
 .vscode/
 
 ### Mac OS ###
+<<<<<<< HEAD
 .DS_Store
+=======
+.DS_Store
+
+###to ignore thi file###
+utils/MyDataBase.java
+>>>>>>> 90781c80dac62ee0115c83aef63989fd27e397da

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="listePatientScene" prefHeight="524.0" prefWidth="885.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SuiviController.AfficherPatient">
+   <children>
+      <Line endX="-126.8000259399414" endY="438.29290771484375" layoutX="227.0" layoutY="85.0" startX="-126.8000259399414" startY="-85.00000762939453" stroke="#a7c7e6" />
+      <Label layoutX="184.0" layoutY="28.0" prefHeight="22.0" prefWidth="141.0" stylesheets="@/style/ajouterPatient.css" text="Liste Patients" textFill="#3066b0">
+         <font>
+            <Font name="Calibri Bold" size="20.0" />
+         </font>
+      </Label>
+       <ListView fx:id="listePatient" layoutX="121.0" layoutY="80.0" prefHeight="403.0" prefWidth="733.0" stylesheets="@/style/afficherPatient.css" />
+      <Button layoutX="714.0" layoutY="27.0" mnemonicParsing="false" onAction="#ajouterPatient" prefHeight="26.0" prefWidth="126.0" stylesheets="@/style/afficherPatient.css" text="+ Ajouter Patient" />
+      <ImageView fitHeight="50.0" fitWidth="58.0" layoutX="121.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@/images/listePatient.png" />
+         </image>
+      </ImageView>
+
+
+   </children>
+</AnchorPane>

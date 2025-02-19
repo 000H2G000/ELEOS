@@ -10,7 +10,11 @@ public class MyDataBase {
     private Connection connection;
 
     // Database configuration
+<<<<<<< HEAD
     private final String URL = "jdbc:mysql://localhost:3306/pidev3";
+=======
+    private final String URL = "jdbc:mysql://localhost:3306/bdd";
+>>>>>>> 90781c80dac62ee0115c83aef63989fd27e397da
     private final String USER = "root";
     private final String PASSWORD = "";
 
